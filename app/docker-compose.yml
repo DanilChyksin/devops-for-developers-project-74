@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    container_name: my-app
+    volumes:
+      - .:/app # Монтируем текущую директорию в /app контейнера
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
