@@ -4,4 +4,14 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - "./app:/app"
+      - "./app:/app/app"
+
+  caddy:
+    image: caddy:2
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./services/caddy/Caddyfile:/etc/caddy/Caddyfile:ro"
