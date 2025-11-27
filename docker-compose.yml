@@ -6,5 +6,3 @@ services:
       dockerfile: Dockerfile
     working_dir: /app
     command: make test
-    volumes:
-      - "./app:/app"
