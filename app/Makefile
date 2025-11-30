@@ -3,8 +3,8 @@ setup: install db-migrate
 .PHONY: ci
 ci:
 	@code=0; \
-	docker compose -f ../docker-compose.yml up --abort-on-container-exit --exit-code-from app || code=$$?; \
-	docker compose -f ../docker-compose.yml down --volumes --remove-orphans || true; \
+	COMPOSE_FILE=../docker-compose.yml docker compose up --abort-on-container-exit --exit-code-from app || code=$$?; \
+	COMPOSE_FILE=../docker-compose.yml docker compose down --volumes --remove-orphans || true; \
 	exit $$code
 
 install:
