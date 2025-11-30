@@ -15,8 +15,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      caddy:
-        condition: service_started
   caddy:
     image: caddy:2
     depends_on:
