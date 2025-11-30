@@ -39,3 +39,15 @@ lint-fix:
 
 test:
 	NODE_ENV=test npm test -s
+
+test-with-server:
+	@NODE_ENV=test npm start & \
+	APP_PID=$$!; \
+	echo "Waiting for app to start..."; \
+	sleep 10; \
+	echo "Running tests..."; \
+	npm test -s; \
+	TEST_EXIT=$$?; \
+	echo "Stopping app..."; \
+	kill $$APP_PID || true; \
+	exit $$TEST_EXIT

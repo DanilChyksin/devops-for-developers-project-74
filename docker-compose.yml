@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app/app
-    command: make test
+    command: make test-with-server
     environment:
       DATABASE_HOST: db
       DATABASE_NAME: example
@@ -15,6 +15,17 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      caddy:
+        condition: service_started
+  caddy:
+    image: caddy:2
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./services/caddy/Caddyfile:/etc/caddy/Caddyfile:ro"
   db:
     image: postgres
     environment:
